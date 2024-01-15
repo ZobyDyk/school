@@ -1,1 +1,1 @@
-# -kola
+Sync škola
