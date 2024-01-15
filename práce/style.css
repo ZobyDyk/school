@@ -1,0 +1,62 @@
+body {
+    background-color: #024; /* Barva pozadí celé stránky */
+    margin: 0;
+    padding: 0;
+}
+
+.header-container {
+    background-color: #046; /* Barva pozadí pro header a navigaci */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically in the center */
+    padding: 1em;
+    margin: 0;
+    background: linear-gradient(to top, #046, #012);
+}
+
+
+h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 5em;
+    color: white;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
+sup {
+    color: white;
+    font-size: 0.3em;
+    margin-left: 10px;
+}
+
+header svg {
+    fill: white;
+    align-self: center; /* Align SVG vertically in the center */
+    height: 4rem;
+}
+nav {
+    text-align: center; /* Vycentrujeme odkazy */
+    padding: 1em; /* Stejný padding jako u headeru */
+}
+
+nav a {
+    color: white;
+    background-color: black;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1em;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: pink;
+    
+}

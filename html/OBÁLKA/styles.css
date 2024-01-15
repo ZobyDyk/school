@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 150px;
+    background-color: #e6e6e6;
+    border: 1px solid #cccccc;
+    perspective: 600px;
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #d9d9d9;
+    transform-origin: top;
+    transform: rotateX(-90deg);
+    transition: transform 1s ease;
+}
+
+.content {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    transform: translateY(-100px);
+    transition: transform 1s ease;
+}
+
+.content p {
+    padding: 20px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+}
+
+.envelope:hover .flap {
+    transform: rotateX(0deg);
+}
+
+.envelope:hover .content {
+    transform: translateY(0);
+}

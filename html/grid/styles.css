@@ -1,0 +1,27 @@
+body {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    grid-template-rows: 3rem 1fr;
+    height: 100vh;
+}
+
+.menu{
+    grid-column-start: 0;
+    grid-column-end: span 2;
+    background-color: rebeccapurple;
+}
+
+.side-bar{
+    background-color: aqua;
+}
+
+.main{
+    display: grid;
+    justify-items: center;
+}
+
+.wrapper{
+    width: 80%;
+    height: 50%;
+    display: grid;
+}
