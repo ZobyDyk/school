@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Vylepšená Noční Planeta</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<script>
+  let stars = [];
+  let comets = [];
+  let auroraColors = [];
+  let currentAurora = 0;
+
+  function setup() {
+      createCanvas(windowWidth, windowHeight);
+      for (let i = 0; i < 400; i++) {
+          stars.push(new Star());
+      }
+      for (let i = 0; i < 3; i++) { // Start with a few comets
+          comets.push(new Comet());
+      }
+
+      // Initialize aurora colors
+      auroraColors = [
+          [color(0, 255, 255, 50), color(0, 128, 0, 50)], // Default colors
+          [color(255, 0, 255, 50), color(75, 0, 130, 50)], // Purple variation
+          [color(255, 165, 0, 50), color(255, 69, 0, 50)] // Orange-red variation
+      ];
+  }
+
+  function draw() {
+      background(0, 15, 30);
+      drawAurora();
+      stars.forEach(star => {
+          star.update();
+          star.show();
+      });
+      comets.forEach((comet, index) => {
+          comet.update();
+          comet.show();
+          if (!comet.active) { // Replace inactive comet with a new one
+              comets[index] = new Comet();
+          }
+      });
+  }
+
+  function drawAurora() {
+      let colors = auroraColors[currentAurora];
+      noFill();
+      for (let i = 0; i < 2; i++) {
+          let y = map(i, 0, 2, 0, height / 2);
+          stroke(colors[i]);
+          beginShape();
+          for (let x = 0; x <= width; x += 10) {
+              let variance = map(sin(x * 0.01 + frameCount * 0.01), -1, 1, -50, 50);
+              curveVertex(x, y + variance);
+          }
+          endShape();
+      }
+  }
+
+  class Star {
+      constructor() {
+          this.x = random(width);
+          this.y = random(height);
+          this.size = random(0.5, 2.5);
+      }
+
+      update() {
+          this.size = random(0.5, 2.5); // Make stars twinkle
+      }
+
+      show() {
+          noStroke();
+          fill(255);
+          circle(this.x, this.y, this.size);
+      }
+  }
+
+  class Comet {
+      constructor() {
+          this.x = random(width);
+          this.y = random(-50, -100); // Start above the canvas
+          this.size = random(2, 4);
+          this.tailLength = random(100, 300);
+          this.speedX = random(-2, 2); // Allows for diagonal movement
+          this.speedY = random(4, 8); // Mostly downward
+          this.active = true;
+      }
+
+      update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          // Mark comet as inactive if it moves off screen
+          if (this.y - this.tailLength > height || this.x < -this.tailLength || this.x > width + this.tailLength) {
+              this.active = false;
+          }
+      }
+
+      show() {
+          for (let i = 0; i < this.tailLength; i += 5) {
+              let alpha = map(i, 0, this.tailLength, 255, 0);
+              fill(255, 255, 255, alpha);
+              noStroke();
+              ellipse(this.x - i * this.speedX / this.speedY, this.y - i, this.size * (1 - i / this.tailLength));
+          }
+      }
+  }
+
+  function mousePressed() {
+      comets.push(new Comet()); // Add a new comet on mouse press
+  }
+
+  function keyPressed() {
+      if (key === '1') currentAurora = 0;
+      if (key === '2') currentAurora = 1;
+      if (key === '3') currentAurora = 2;
+  }
+
+  function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+  }
+</script>
+</body>
+</html>
